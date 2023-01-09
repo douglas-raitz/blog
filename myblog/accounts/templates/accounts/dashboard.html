@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
 
 {%block conteudo %}
-    <h2>dashboard</h2>
-    <p>{{ user }}{{ user.sobrenome }}</p>
+<div class="main_dashboard">
+    <h1>Publicações</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Data de nascimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuarios in usuario %}
+            {{ usuario.nome_autor }}
+            <tr>
+                <td>
+                    <a href="{% url 'ver_usuario' usuarios.id %}">{{ usuarios.nome_autor }}</a>
+                </td>
+                <td>{{ usuarios.sobrenome }}</td>
+                <td>{{ usuarios.data_nascimento }}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
 {%endblock%}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{%block conteudo%}
+<div class="main_views_usuario">
+    <h1>{{ usuario.nome_autor }} {{ usuario.sobrenome }}</h1>
+    <dl>
+        <dt>id</dt>
+        <dd>{{ usuario.id }}</dd>
+
+        <dt>Data de nascimento</dt>
+        <dd>{{ usuario.data_nascimento }}</dd>
+
+        <dt>Data criação</dt>
+        <dd>{{ usuario.date_create }}</dd>
+    </dl>
+</div>
+{%endblock%}

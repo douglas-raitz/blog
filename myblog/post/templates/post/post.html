@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<div class="main_posts">
+
+    <h1>Publicações</h1>
+    {% for posts in posts %}
+    <a href="{% url 'view_post' posts.id %}" class="link_post">
+        <div class="post">
+            <div class="content_post">
+                <label for="titulo_post">Titulo: </label><br>
+                <a href="{% url 'view_post' posts.id %}" name="titulo_post">{{ posts.titulo }}</a>
+            </div>
+            <div class="content_post">
+                <label for="mansagem_post">Mensagem: </label><br>
+                <p name="mansagem_post">{{ posts.publicacao }}</p>
+            </div>
+            <div class="content_post">
+                <label for="data_post">Publicado em: </label>
+                <p name="data_post">{{ posts.date_create }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{%endblock%}

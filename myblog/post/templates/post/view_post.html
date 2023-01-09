@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{%block titulo %}Post {{ post.titulo }}{%endblock%}
+{% block conteudo %}
+    <div class="container_post">
+        <div class="page_post">
+            <h2>{{ post.titulo }}</h2>
+            <textarea rows="46" cols="150">{{ post.publicacao }}</textarea>
+        </div>
+    </div>
+    {% endblock %}
