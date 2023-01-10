@@ -4,6 +4,10 @@
         <h2>Meu Blog</h2>
     </div>
     <div class="nav_links">
+        {% if user.tipo == 'AD'%}
+            <a href="{% url 'usuarios' %}">Usuários</a>
+            <a href="{% url 'categorias' %}">Categorias</a>
+        {% endif %}
         <a href="{% url 'post' %}">Publicações</a>
         <a href="{% url 'logout' %}">sair</a>
     </div>

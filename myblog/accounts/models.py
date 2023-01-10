@@ -14,8 +14,10 @@ class Usuario(models.Model):
     choices = [('AD', 'Administrador'), ('AU', 'Autor'),('CO', 'Comum')]
     nome_autor = models.CharField(max_length=100)
     sobrenome = models.CharField(max_length=100, blank=True)
+    usuario = models.CharField(max_length=100)
     data_nascimento = models.DateField(blank=True, null=True)
     date_create = models.DateTimeField(default=timezone.now)
+    senha = models.CharField(max_length=100)
     tipo = models.CharField(max_length=30, choices=choices)
 
     def __str__(self):
