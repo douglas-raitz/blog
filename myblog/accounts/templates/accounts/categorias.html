@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% block conteudo %}
     <div class="container_categorias">
+        <div class="content_categoria">
         <h2>Página categorias</h2>
+            <table>
+                <tr>
+                    <th>Nome</th>
+                </tr>
+                {% for categoria in categorias %}          
+                <tr>
+                    <td>{{ categoria.nome_categoria }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a class="button_confirm" href="{% url 'categoria' %}">Nova categoria</a>
+        </div>
     </div>
 {% endblock %}

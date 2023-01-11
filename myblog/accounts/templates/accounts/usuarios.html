@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
+
 {% block conteudo %}
     <div class="container_users">
+        <div class="content_user">
         <h2>Página de usuarios</h2>
+        {{ user_login }}
             <table>
                 <tr>
                     <th>Nome</th>
                     <th>Sobrenome</th>
                     <th>Usuário</th>
+                    <th>Acesso</th>
                 </tr>
         {% for usuario in user %}          
                 <tr>
                     <td>{{ usuario.nome_autor }}</td>
                     <td>{{ usuario.sobrenome }}</td>
                     <td>{{ usuario.usuario }}</td>
+                    <td>{{ usuario.tipo }}</td>
                 </tr>
                 {% endfor %}
-            </table> 
+            </table>
+            <a class="button_confirm" href="{% url 'cadastro' %}">Novo usuário</a>
+        </div>
     </div>
 {% endblock %}

@@ -9,6 +9,7 @@
             <a href="{% url 'categorias' %}">Categorias</a>
         {% endif %}
         <a href="{% url 'post' %}">Publicações</a>
+        <span class="name_user_login">{{ user_login }}</span>
         <a href="{% url 'logout' %}">sair</a>
     </div>
 </div>

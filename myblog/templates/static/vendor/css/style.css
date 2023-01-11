@@ -47,6 +47,10 @@
 .nav_links a:hover{
     background-color: #afceea80;
 }
+.name_user_login{
+    color: #fff;   
+}
+/* TELA DE LOGIN */
 .container_login{
     display: flex;
     width: 100%;
@@ -221,15 +225,21 @@
     background-color: #fff;
     border: 1px solid black;
 }
-.container_register button{
-    border:none;
-    border-radius: 15px;
-    background-color: #41a2fc;
-    color: #fff;
+.button_confirm{
+    width: 10vw;
     padding: 10px 20px;
-    width: 120px;
-    font-weight: 800;
+    text-align: center;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 1px;
+    background-color: #41a2fc;
+    text-decoration: none;
+}
+.button_confirm:hover{
+    background-color: #67b4fc;
 }
 .inputs_register, h1{
     display: flex;
@@ -248,23 +258,56 @@
     background-color: transparent;
     border-bottom: .8px solid #696969;
 }
-table{
+
+/* PAGINA USUARIOS */
+.container_users{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    border: 1px solid black;
-    text-align: center;
-    width: 400px;
+    width: 80vw;
 }
-table tr{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    border: 1px solid #696969;
+.content_user h2{
+    margin-bottom: 40px;
+}
+.content_user a{
+    position: absolute;
+    left:79vw;
+    margin-top: 15px;
+    text-decoration: none;
+    font-size: 16px;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80vw;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+/* CATEGORIA */
+.content_categoria a{
+    position: absolute;
+    margin-top: 15px;
+    left: 79vw;
+    font-size: 16px;
+}
+.input_categoria{
+    width: 80vw;
+}
+.input_categoria label{
+    font-size: 20px;
+    font-weight: 800;
+}
+.input_categoria input{
+    height: 40px;
+    font-size: 17px;
+    width: 100%;
     padding: 5px;
-}
-table td{
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+    margin-top: 10px;
 }

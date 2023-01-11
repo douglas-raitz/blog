@@ -18,7 +18,7 @@ class Usuario(models.Model):
     data_nascimento = models.DateField(blank=True, null=True)
     date_create = models.DateTimeField(default=timezone.now)
     senha = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=30, choices=choices)
+    tipo = models.CharField(max_length=30, choices=choices, default='CO')
 
     def __str__(self):
         return self.nome_autor
