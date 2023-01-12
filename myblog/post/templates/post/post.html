@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% block conteudo %}
 <div class="main_posts">
-    {% if user_login %}
-        <span>{{ user_login }}</span>
-    {%endif%}
     <h1>Publicações</h1>
     {% for posts in posts %}
     <a href="{% url 'view_post' posts.id %}" class="link_post">
@@ -23,5 +20,10 @@
         </div>
     </a>
     {% endfor %}
+    {% if usuario_tipo == 'AU' %}
+        <div class="button_categorias">
+            <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
+        </div>
+    {% endif %}
 </div>
 {%endblock%}

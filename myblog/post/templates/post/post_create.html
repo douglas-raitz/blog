@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+    <div class="container_post_create">
+        <h1>Criar publicação</h1>
+        <form action="{% url 'post_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="input_post_create">
+                <label for="categoria">Categoria:</label>
+                <select name="categoria" id="categoria">
+                    <option value="" selected disabled>Selecione uma categoria</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria }}">{{ categoria.nome_categoria }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input_post_create">
+                <input type="text" value="{{ usuario_name }}" name="{{ usuario_name }}" id="{{ usuario_name }}" hidden>
+            </div>
+            <div class="input_post_create">
+                <label for="titulo">Titulo:</label>
+                <input type="text" name="titulo" id="titulo">
+            </div>
+            <div class="input_post_create">
+                <textarea name="publicacao" id="publicacao" cols="189" rows="35"></textarea>
+            </div>
+            <div class="button_categorias">
+                <button class="button_confirm" type="submit">Confirmar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

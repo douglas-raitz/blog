@@ -24,7 +24,7 @@ class Usuario(models.Model):
         return self.nome_autor
 
 class Post(models.Model):
-    categoria = models.OneToOneField(Categoria, on_delete=models.DO_NOTHING)
+    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING, related_name='categoria')
     autor = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     titulo = models.CharField(max_length=255)
     publicacao = models.CharField(max_length=1000)

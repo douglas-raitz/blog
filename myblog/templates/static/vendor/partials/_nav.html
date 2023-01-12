@@ -1,10 +1,12 @@
 {% load static %}
 <div class="container_nav">
     <div class="nav_title">
-        <h2>Meu Blog</h2>
+        <div class="pai_link_log">
+            <a class="link_logo" href="{% url 'dashboard' %}">Meu Blog</a>
+        </div>
     </div>
     <div class="nav_links">
-        {% if user.tipo == 'AD'%}
+        {% if usuario_tipo == 'AD'%}
             <a href="{% url 'usuarios' %}">Usuários</a>
             <a href="{% url 'categorias' %}">Categorias</a>
         {% endif %}

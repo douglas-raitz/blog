@@ -5,8 +5,7 @@
 }
 .container_main{
     display: flex;
-    border: 1px solid blue;
-    height: 93vh;
+    height: 100vh;
 }
 .container{
     display: flex;
@@ -28,8 +27,16 @@
 .nav_title{
     margin-left: 30px;
 }
-.nav_title h2{
+.link_logo{
     color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 25px;
+}
+.pai_link_log{
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    border-radius: 50%;
 }
 .nav_links{
     /* border: 1px solid red; */
@@ -310,4 +317,43 @@ tr:nth-child(even) {
     width: 100%;
     padding: 5px;
     margin-top: 10px;
+}
+.button_categorias{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* TELA POST */
+.container_post_create{
+    width: 80vw;
+}
+.container_post_create h1{
+    justify-content: center;
+}
+.input_post_create{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.input_post_create label{
+    font-size: 22px;
+    font-weight: 700;
+}
+.input_post_create input{
+    height: 30px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+}
+.input_post_create input:focus, .input_post_create textarea:focus{
+    border: 2px solid green;
+}
+.input_post_create textarea{
+    outline: none;
+}
+.input_post_create select{
+    padding: 5px;
+    font-size: 15px;
 }

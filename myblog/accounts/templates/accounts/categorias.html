@@ -2,7 +2,7 @@
 {% block conteudo %}
     <div class="container_categorias">
         <div class="content_categoria">
-        <h2>Página categorias</h2>
+        <h2>Categorias Disponíveis</h2>
             <table>
                 <tr>
                     <th>Nome</th>
@@ -13,7 +13,9 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a class="button_confirm" href="{% url 'categoria' %}">Nova categoria</a>
+            <div class="button_categorias">
+                <a class="button_confirm" href="{% url 'categoria' %}">Nova categoria</a>
+            </div>
         </div>
     </div>
 {% endblock %}

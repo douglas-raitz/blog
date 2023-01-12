@@ -13,15 +13,21 @@ def login(request):
 
     user = Usuario.objects.filter(usuario=usuario, senha=senha).first()
     
-    request.session['usuario_logado'] = user.id
+    request.session['usuario_id'] = user.id
+    request.session['usuario_name'] = user.nome_autor
+    request.session['usuario_tipo'] = user.tipo
 
     if not user:
         return render(request, 'accounts/login.html')
     else:
-        user_login = request.session['usuario_logado']
+        usuario_id = request.session['usuario_id']
+        usuario_name = request.session['usuario_name']
+        usuario_tipo = request.session['usuario_tipo']
+        
         return render(request, 'accounts/dashboard.html', {
-            "user": user,
-            "user_login": user_login
+            "usuario_id": usuario_id,
+            "usuario_name": usuario_name,
+            "usuario_tipo": usuario_tipo,
         })
     
 
@@ -62,22 +68,41 @@ def logout(request):
 
 
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    usuario_id = request.session['usuario_id']
+    usuario_name = request.session['usuario_name']
+    usuario_tipo = request.session['usuario_tipo']
+
+    return render(request, 'accounts/dashboard.html',{
+        'usuario_id':usuario_id,
+        'usuario_name':usuario_name,
+        'usuario_tipo':usuario_tipo,
+    })
 
 
 def usuarios(request):
     user = Usuario.objects.all()
-    user_login = request.session['usuario_logado']
- 
+    usuario_id = request.session['usuario_id']
+    usuario_name = request.session['usuario_name']
+    usuario_tipo = request.session['usuario_tipo']
+
     return render(request, 'accounts/usuarios.html',{
-        'user': user,
-        'user_login': user_login
+        'user':user,
+        'usuario_id':usuario_id,
+        'usuario_name':usuario_name,
+        'usuario_tipo':usuario_tipo,
     })
 
 def categorias(request):
     categorias = Categoria.objects.all()
+    usuario_id = request.session['usuario_id']
+    usuario_name = request.session['usuario_name']
+    usuario_tipo = request.session['usuario_tipo']
+
     return render(request, 'accounts/categorias.html', {
-        "categorias":categorias
+        "categorias":categorias,
+        'usuario_id':usuario_id,
+        'usuario_name':usuario_name,
+        'usuario_tipo':usuario_tipo,
     })
 
 def categoria(request):
