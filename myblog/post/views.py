@@ -30,7 +30,6 @@ def post_create(request):
     usuario_tipo = request.session['usuario_tipo']
 
     categoria_name = request.POST.get('categoria')
-    autor_nome = request.POST.get(usuario_name)
     titulo = request.POST.get('titulo')
     publicacao = request.POST.get('publicacao')
 
@@ -39,7 +38,7 @@ def post_create(request):
     
     if request.method == 'POST':
         categoria = Categoria.objects.filter(nome_categoria=categoria_name).first()
-        autor = Usuario.objects.filter(nome_autor=autor_nome).first()
+        autor = Usuario.objects.filter(nome_autor=usuario_name).first()
         post = Post(categoria=categoria,autor=autor,titulo=titulo,publicacao=publicacao)
         post.save()
         return render(request, 'post/post_create.html')
