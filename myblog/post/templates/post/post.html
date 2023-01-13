@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{%block titulo %}Publicações{% endblock%}
 {% block conteudo %}
 <div class="main_posts">
     <h1>Publicações</h1>
@@ -10,6 +11,10 @@
                 <a href="{% url 'view_post' posts.id %}" name="titulo_post">{{ posts.titulo }}</a>
             </div>
             <div class="content_post">
+                <label for="mansagem_post">Categoria: </label><br>
+                <p name="mansagem_post">{{ posts.categoria }}</p>
+            </div>
+            <div class="content_post">
                 <label for="mansagem_post">Mensagem: </label><br>
                 <p name="mansagem_post">{{ posts.publicacao }}</p>
             </div>
@@ -17,13 +22,28 @@
                 <label for="data_post">Publicado em: </label>
                 <p name="data_post">{{ posts.date_create }}</p>
             </div>
+            <a class="button_post_update" href="{% url 'post_update' posts.id %}" title="Editar publicação">
+                Editar
+            </a>
+            <button onclick="alert_delete('{{ posts.id }}')">DELETAR</button>
         </div>
     </a>
     {% endfor %}
     {% if usuario_tipo == 'AU' %}
-        <div class="button_categorias">
-            <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
-        </div>
+    <div class="button_categorias">
+        <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
+    </div>
     {% endif %}
+    <script>
+        function alert_delete(post_id) {
+            const confirma_delete = confirm('tem certeza disso?')
+            console.log(post_id)
+            if (confirma_delete) {
+                const url = "{% url 'post_delete' 123 %}"
+                window.location.assign(url.replace('123', post_id))
+            }
+        }
+
+    </script>
 </div>
 {%endblock%}

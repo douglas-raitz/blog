@@ -33,11 +33,6 @@
     font-weight: 800;
     font-size: 25px;
 }
-.pai_link_log{
-    border: 1px solid #fff;
-    padding: 10px 25px;
-    border-radius: 50%;
-}
 .nav_links{
     /* border: 1px solid red; */
     padding: 20px;
@@ -326,6 +321,9 @@ tr:nth-child(even) {
 }
 
 /* TELA POST */
+.post{
+    align-items: center;
+}
 .container_post_create{
     width: 80vw;
 }
@@ -352,8 +350,19 @@ tr:nth-child(even) {
 }
 .input_post_create textarea{
     outline: none;
+    max-width: 80vw;
+    min-width: 80vw;
+    max-height: 60vh;
+    min-height: 60vh;
 }
 .input_post_create select{
     padding: 5px;
     font-size: 15px;
+}
+.button_post_update{
+    color: blue !important;
+    margin-right: 15px;
+}
+.button_post_delete{
+    color: red !important;
 }

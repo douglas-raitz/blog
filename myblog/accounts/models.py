@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
 # Create your models here.
 # class Usuario(models.Model):
@@ -32,3 +33,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
+
+class UpdatePost(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('categoria','titulo','publicacao')

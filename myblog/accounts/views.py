@@ -32,6 +32,7 @@ def login(request):
     
 
 def cadastro(request):
+
     if request.method != 'POST':
         return render(request, 'accounts/cadastro.html')
     
@@ -45,14 +46,19 @@ def cadastro(request):
 
     if senha != senha2:
         return render(request, 'accounts/cadastro.html')
-
+    
     if User.objects.filter(username=usuario).exists():
-        return render(request, 'accounts/cadastro.html')
+        return render(request, 'accounts/cadastro.html',{
+            
+        })
 
-
-    user = Usuario(usuario=usuario,nome_autor=nome,sobrenome=sobrenome,data_nascimento=data_nascimento,tipo=nivel_acesso,senha=senha)
-    user.save()
-    return redirect('dashboard')
+    try:
+        user = Usuario(usuario=usuario,nome_autor=nome,sobrenome=sobrenome,data_nascimento=data_nascimento,tipo=nivel_acesso,senha=senha)
+        user.save()
+        return redirect('dashboard')
+    except:
+        print('Não foi possível adicionar um novo usuário')
+        return redirect('dashboard')
     
 
 

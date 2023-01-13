@@ -1,9 +1,7 @@
 {% load static %}
 <div class="container_nav">
     <div class="nav_title">
-        <div class="pai_link_log">
-            <a class="link_logo" href="{% url 'dashboard' %}">Meu Blog</a>
-        </div>
+        <a class="link_logo" href="{% url 'dashboard' %}">Meu Blog</a>
     </div>
     <div class="nav_links">
         {% if usuario_tipo == 'AD'%}
