@@ -33,8 +33,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
-
-class UpdatePost(ModelForm):
-    class Meta:
-        model = Post
-        fields = ('categoria','titulo','publicacao')

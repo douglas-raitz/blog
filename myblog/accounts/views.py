@@ -32,6 +32,10 @@ def login(request):
     
 
 def cadastro(request):
+    usuario_tipo = request.session['usuario_tipo']
+
+    if usuario_tipo != 'AD':
+        return redirect('dashboard')
 
     if request.method != 'POST':
         return render(request, 'accounts/cadastro.html')
@@ -86,10 +90,14 @@ def dashboard(request):
 
 
 def usuarios(request):
-    user = Usuario.objects.all()
     usuario_id = request.session['usuario_id']
     usuario_name = request.session['usuario_name']
     usuario_tipo = request.session['usuario_tipo']
+
+    if usuario_tipo != 'AD':
+        return redirect('dashboard')
+
+    user = Usuario.objects.all()
 
     return render(request, 'accounts/usuarios.html',{
         'user':user,
@@ -99,10 +107,14 @@ def usuarios(request):
     })
 
 def categorias(request):
-    categorias = Categoria.objects.all()
     usuario_id = request.session['usuario_id']
     usuario_name = request.session['usuario_name']
     usuario_tipo = request.session['usuario_tipo']
+    
+    if usuario_tipo != 'AD':
+        return redirect('dashboard')
+
+    categorias = Categoria.objects.all()
 
     return render(request, 'accounts/categorias.html', {
         "categorias":categorias,
@@ -112,6 +124,10 @@ def categorias(request):
     })
 
 def categoria(request):
+    usuario_tipo = request.session['usuario_tipo']
+    if usuario_tipo != 'AD':
+        return redirect('dashboard')
+
     if request.method != 'POST':
         return render(request, 'accounts/categoria.html')
 

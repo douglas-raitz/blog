@@ -22,10 +22,12 @@
                 <label for="data_post">Publicado em: </label>
                 <p name="data_post">{{ posts.date_create }}</p>
             </div>
+            {% if usuario_tipo == 'AU' %}
             <a class="button_post_update" href="{% url 'post_update' posts.id %}" title="Editar publicação">
                 Editar
             </a>
-            <button onclick="alert_delete('{{ posts.id }}')">DELETAR</button>
+            <button class="button_post_delete" onclick="alert_delete('{{ posts.id }}')">DELETAR</button>
+            {% endif %}
         </div>
     </a>
     {% endfor %}
@@ -34,9 +36,22 @@
         <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
     </div>
     {% endif %}
+    <div class="footer_paginator">
+        {% for pagina in posts.paginator.page_range %}
+            {% if posts.number == pagina %}
+            <div class="page_select">
+                <a href="?page={{ pagina }}">{{ pagina }}</a>
+            </div>
+            {% else %}
+            <div>
+                <a href="?page={{ pagina }}">{{ pagina }}</a>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
     <script>
         function alert_delete(post_id) {
-            const confirma_delete = confirm('tem certeza disso?')
+            const confirma_delete = confirm('tem certeza que deseja excluir este usuário?')
             console.log(post_id)
             if (confirma_delete) {
                 const url = "{% url 'post_delete' 123 %}"

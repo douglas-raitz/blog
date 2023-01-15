@@ -1,5 +1,5 @@
 {%extends 'base.html' %}
-
+{% load static %}
 {%block titulo %} Login {% endblock %}
 
 {%block conteudo %}
@@ -27,7 +27,7 @@
                 {% endif %}
             </div>
             <div class="img_login">
-                <h2>Imagem</h2>
+                <img src="{% static 'vendor/images/image_login.jpg' %}" alt="">
             </div>
         </div>
     </div>
