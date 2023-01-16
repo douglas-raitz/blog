@@ -33,6 +33,7 @@ def login(request):
 
 def cadastro(request):
     usuario_tipo = request.session['usuario_tipo']
+    nivel_acesso = Usuario.objects.all()
 
     if usuario_tipo != 'AD':
         return redirect('dashboard')
@@ -53,7 +54,7 @@ def cadastro(request):
     
     if User.objects.filter(username=usuario).exists():
         return render(request, 'accounts/cadastro.html',{
-            
+            print('esse usuario já existe')
         })
 
     try:
@@ -65,6 +66,27 @@ def cadastro(request):
         return redirect('dashboard')
     
 
+
+def cadastrar(request):
+    
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        sobrenome = request.POST.get('sobrenome')
+        usuario = request.POST.get('usuario')
+        data_nascimento = request.POST.get('data_nascimento')
+        senha = request.POST.get('senha')
+        senha2 = request.POST.get('senha2')
+        
+        if senha != senha2:
+            print('As senhas precisam ser iguais!')
+            return redirect('cadastrar')
+        
+        cadastro_comum = Usuario(nome_autor=nome,sobrenome=sobrenome,usuario=usuario,data_nascimento=data_nascimento,senha=senha)
+        cadastro_comum.save()
+        print('Cadastro concluido, tudo pronto para você fazer login.')
+        return redirect('/')
+    
+    return render(request, 'accounts/cadastro_comum.html')
 
 def ver_usuario(request, usuario_id):
     usuario = Usuario.objects.get(id=usuario_id)

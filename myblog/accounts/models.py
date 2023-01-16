@@ -11,6 +11,7 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nome_categoria
 
+
 class Usuario(models.Model):
     choices = [('AD', 'Administrador'), ('AU', 'Autor'),('CO', 'Comum')]
     nome_autor = models.CharField(max_length=100)
@@ -33,3 +34,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class Comentario(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    comentario = models.CharField(max_length=1000)
+    date_create = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.comentario

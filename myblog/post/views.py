@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.models import Post, Categoria, Usuario
+from accounts.models import Post, Categoria, Usuario, Comentario
 from accounts.views import login
 from django.core.paginator import Paginator
 
@@ -26,10 +26,21 @@ def post(request):
 
 def view_post(request,post_id):
     post = Post.objects.get(id=post_id)
+    comentarios = Comentario.objects.all()
     
+    usuario_id = request.session['usuario_id']
+
+    if request.method == 'POST':
+        usuario = Usuario.objects.get(id=usuario_id)
+        comentario = request.POST.get('comentario')
+        comentario_save = Comentario(comentario=comentario,usuario=usuario,post=post)
+        comentario_save.save()
+
     return render(request, 'post/view_post.html',{
-        'post': post
+        'post': post,
+        'comentarios':comentarios,
     })
+
 
 def post_create(request):
     categorias = Categoria.objects.all()
@@ -44,6 +55,10 @@ def post_create(request):
     
     if usuario_tipo != 'AU':
         return redirect('post')
+
+    # if len(publicacao) < 10:
+    #     print('O Post não pode conter menos de 10 caracteres')
+    #     return redirect('post')
     
     try:
         if request.method == 'POST':

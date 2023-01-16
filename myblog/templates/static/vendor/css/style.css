@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
 }
+body{
+    background-color: #c4daee;
+}
 .container_main{
     display: flex;
     height: 100%;
@@ -107,7 +110,7 @@
     outline:none;
     color: #fff;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1px;    
 }
 .inputs_login button{
     width: 8vw;
@@ -123,6 +126,9 @@
 }
 .inputs_login button:hover{
     background-color: #76bcfd;
+}
+.cadastrar_link{
+    margin-right: 20px;
 }
 .text-center{
     text-align:center;
@@ -218,6 +224,7 @@
     background-color: #ffffff98;
     width: 80%;
     height: 80vh;
+    margin-bottom: 40px;
 }
 .page_post h2{
     margin-top: 20px;
@@ -243,9 +250,15 @@
     height: 88vh;
     padding: 12px;
     background-color: #fff;
-    border: 1px solid black;
+    width: 600px;
 }
-.button_confirm{
+.box_btn_cadastro{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
+}
+.button_confirm, .button_coments{
     width: 10vw;
     padding: 10px 20px;
     text-align: center;
@@ -258,7 +271,7 @@
     background-color: #41a2fc;
     text-decoration: none;
 }
-.button_confirm:hover{
+.button_confirm:hover, .button_coments:hover{
     background-color: #67b4fc;
 }
 .inputs_register, h1{
@@ -278,7 +291,10 @@
     background-color: transparent;
     border-bottom: .8px solid #696969;
 }
-
+.inputs_register select{
+    padding: 5px;
+    font-size: 15px;
+}
 /* PAGINA USUARIOS */
 .container_users{
     display: flex;
@@ -389,6 +405,66 @@ tr:nth-child(even) {
 }
 .button_post_delete:hover{
     cursor: pointer;
+}
+.post_coments{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+.post_coments span{
+    font-size: 20px;
+    font-weight: 700;
+}
+.post_coments textarea{
+    outline: none;
+    max-width: 69vw;
+    min-width: 69vw;
+    max-height: 10vh;
+    min-height: 10vh;
+    padding: 5px;
+}
+.button_post{
+    display: flex;
+    width: 69vw;
+    justify-content: flex-end;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+.post_coments_all{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
+}
+.post_coments_unit{
+    border: 1px solid #696969;
+    border-radius: 15px;
+    width: 69vw;
+    min-height: 10vh;
+    max-height: 100%;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 15px;
+    background-color: #afcdea;
+}
+.post_coments_unit span{
+    font-weight: 700;
+}
+.post_coments_unit p{
+    margin-top: 10px;
+}
+.info_coments{
+    display: flex;
+    justify-content: space-between;
+}
+.info_date_create{
+    color: #696969;
 }
 /* PAGINATOR */
 .footer_paginator{

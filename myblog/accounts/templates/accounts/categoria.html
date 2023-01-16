@@ -2,7 +2,7 @@
 {% block conteudo %}
     <div class="content_categoria">
         <h2>Adicionar nova Categoria</h2>
-        <form action="{% url 'categoria' %}" method="post">
+        <form action="{% url 'categoria' %}" method="POST">
             {% csrf_token %}
             <div class="input_categoria">
                 <label for="nome">Nome da Categoria:</label>

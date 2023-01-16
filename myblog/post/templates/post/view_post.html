@@ -6,5 +6,28 @@
             <h2>{{ post.titulo }}</h2>
             <textarea rows="46" cols="150" disabled>{{ post.publicacao }}</textarea>
         </div>
+        <form action="{% url 'view_post' post.id %}" method="POST">
+            <div class="post_coments">
+                {% csrf_token %}
+                <span>Comentar </span>
+                <textarea cols="30" rows="10" name="comentario" id="comentario" placeholder="Escreva aqui seu comentário.."></textarea>
+                <div class="button_post">
+                    <button class="button_coments" type="submit">Comentar</button>
+                </div>
+            </div>
+        </form> 
+        <div class="post_coments_all">
+            {% for coments in comentarios %}
+                {% if coments.post.id == post.id %}
+                    <div class="post_coments_unit">
+                        <div class="info_coments">
+                            <span>{{ coments.usuario }}</span>
+                            <span class="info_date_create">{{ coments.date_create }}</span>
+                        </div>
+                        <p>{{ coments }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
     {% endblock %}

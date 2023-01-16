@@ -12,18 +12,19 @@
                         {% csrf_token %}
                         <div class="input_form">
                             <label for="usuario">Usuário</label><br/>
-                            <input type="text" name="usuario">
+                            <input type="text" name="usuario" autocomplete="off">
                         </div>
                         <div class="input_form">
                             <label for="senha">Senha</label><br/>
                             <input type="password" name="senha">
                         </div>
                         <div class="input_form text-center">
+                            <a class="cadastrar_link" href="{% url 'cadastrar' %}">Cadastrar</a>
                             <button class="button_confirm" type="submit">Entrar</button>
                         </div>
                     </form>
                 {% else %}
-                    Você fez login com {{ user }}
+                    {% url 'dashboard' %}
                 {% endif %}
             </div>
             <div class="img_login">
