@@ -350,8 +350,25 @@ tr:nth-child(even) {
 .button_categorias{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
     margin-top: 15px;
+    text-align: center;
+}
+.button_categorias button{
+    margin-left: 15px;
+}
+.button_cancel{
+    padding:10px 18px;
+    background-color: tomato;
+    border-radius: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing:1px;
+}
+.button_cancel:hover{
+    background-color: rgb(247, 120, 97);
 }
 
 /* TELA POST */
@@ -486,4 +503,22 @@ tr:nth-child(even) {
 .page_select a{
     background-color: #41a2fc;
     color: #fff;
+}
+
+/* messages error */
+.success{
+    background-color: rgb(174, 240, 174);
+    color: green;
+}
+.alert_danger{
+    background-color: rgb(248, 142, 123);
+    color: tomato;
+}
+.alert_info{
+    background-color: rgb(166, 229, 221);
+    color: rgb(77, 126, 111);
+}
+.alert_warning{
+    background-color: rgb(231, 230, 155);
+    color: rgb(112, 86, 14);
 }

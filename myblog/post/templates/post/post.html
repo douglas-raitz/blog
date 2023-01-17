@@ -51,7 +51,7 @@
     </div>
     <script>
         function alert_delete(post_id) {
-            const confirma_delete = confirm('tem certeza que deseja excluir este usuário?')
+            const confirma_delete = confirm('tem certeza que deseja excluir esta publicação?')
             console.log(post_id)
             if (confirma_delete) {
                 const url = "{% url 'post_delete' 123 %}"

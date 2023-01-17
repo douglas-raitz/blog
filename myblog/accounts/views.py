@@ -3,6 +3,7 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required
 from .models import Usuario, Categoria
+from django.contrib import messages
 
 # Create your views here.
 def login(request):
@@ -103,6 +104,8 @@ def dashboard(request):
     usuario_id = request.session['usuario_id']
     usuario_name = request.session['usuario_name']
     usuario_tipo = request.session['usuario_tipo']
+
+    messages.add_message(request, messages.SUCCESS, 'Sucesso ao fazer login')
 
     return render(request, 'accounts/dashboard.html',{
         'usuario_id':usuario_id,
