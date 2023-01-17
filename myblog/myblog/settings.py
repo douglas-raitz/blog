@@ -131,8 +131,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.contrib.messages import constants
 
 MESSAGES_TAGS = {
-    constants.ERROR: 'alert_danger',
-    constants.INFO: 'alert_info',
-    constants.SUCCESS: 'alert_success',
-    constants.WARNING: 'alert_warning',
+    constants.ERROR: 'danger',
+    constants.INFO: 'info',
+    constants.SUCCESS: 'success',
+    constants.WARNING: 'warning',
 }

@@ -1,15 +1,19 @@
 {% load static %}
-<div class="container_nav">
-    <div class="nav_title">
-        <a class="link_logo" href="{% url 'dashboard' %}">Meu Blog</a>
+{% if usuario_id %}
+    <div class="container_nav">
+        <div class="nav_title">
+            <a class="link_logo" href="{% url 'dashboard' %}">Meu Blog</a>
+        </div>
+        <div class="nav_links">
+            {% if usuario_tipo == 'AD'%}
+                <a href="{% url 'usuarios' %}">Usuários</a>
+                <a href="{% url 'categorias' %}">Categorias</a>
+            {% endif %}
+            <a href="{% url 'post' %}">Publicações</a>
+            <span class="name_user_login">{{ user_login }}</span>
+            <a href="{% url 'logout' %}">sair</a>
+        </div>
     </div>
-    <div class="nav_links">
-        {% if usuario_tipo == 'AD'%}
-            <a href="{% url 'usuarios' %}">Usuários</a>
-            <a href="{% url 'categorias' %}">Categorias</a>
-        {% endif %}
-        <a href="{% url 'post' %}">Publicações</a>
-        <span class="name_user_login">{{ user_login }}</span>
-        <a href="{% url 'logout' %}">sair</a>
-    </div>
-</div>
+{% else %}
+    {% url 'login' %}
+{% endif %}

@@ -3,15 +3,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>{%block titulo %}Blog{%endblock%}</title>
+    <title>{% block titulo %}Blog{% endblock %}</title>
     {% include './static/vendor/partials/_head.html'%}
 </head>
 <body>
     {% include './static/vendor/partials/_nav.html'%}
     <div class="container_main">
         <div class="container">
-            {%block conteudo %}
-                <h1>Bem vindo a página home</h1>
+            {% include './static/vendor/partials/_messages.html' %}
+            {% block conteudo %}
+            
             {% endblock %}
         </div>
     </div>

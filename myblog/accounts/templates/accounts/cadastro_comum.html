@@ -30,7 +30,10 @@
                 <label for="senha2">Repetir Senha</label>
                 <input class="input_register" type="password" placeholder="Digite uma senha" name="senha2" id="senha2">
             </div>
-            <button class="button_confirm" type="submit">Cadastrar</button>
+            <div class="button_cadastro">
+                <a class="button_cancel" href="{% url 'login' %}">Cancelar</a>
+                <button class="button_confirm" type="submit">Cadastrar</button>
+            </div>
         </form>
     </div>
 </div>

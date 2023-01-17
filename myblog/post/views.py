@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from accounts.models import Post, Categoria, Usuario, Comentario
 from accounts.views import login
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 
 # Create your views here.
@@ -33,12 +34,22 @@ def view_post(request,post_id):
     if request.method == 'POST':
         usuario = Usuario.objects.get(id=usuario_id)
         comentario = request.POST.get('comentario')
+        
+        if not comentario:
+            messages.add_message(request, messages.ERROR, 'Você precisa ter um comentário para conseguir comentar.')
+            return render(request, 'post/view_post.html',{
+                'post': post,
+                'comentarios':comentarios,
+                'usuario_id':usuario_id,
+            })
+
         comentario_save = Comentario(comentario=comentario,usuario=usuario,post=post)
         comentario_save.save()
 
     return render(request, 'post/view_post.html',{
         'post': post,
         'comentarios':comentarios,
+        'usuario_id':usuario_id,
     })
 
 
@@ -55,10 +66,6 @@ def post_create(request):
     
     if usuario_tipo != 'AU':
         return redirect('post')
-
-    # if len(publicacao) < 10:
-    #     print('O Post não pode conter menos de 10 caracteres')
-    #     return redirect('post')
     
     try:
         if request.method == 'POST':

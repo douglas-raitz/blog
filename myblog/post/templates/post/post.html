@@ -1,36 +1,40 @@
 {% extends 'base.html' %}
+
 {%block titulo %}Publicações{% endblock%}
+
 {% block conteudo %}
 <div class="main_posts">
     <h1>Publicações</h1>
-    {% for posts in posts %}
-    <a href="{% url 'view_post' posts.id %}" class="link_post">
-        <div class="post">
-            <div class="content_post">
-                <label for="titulo_post">Titulo: </label><br>
-                <a href="{% url 'view_post' posts.id %}" name="titulo_post">{{ posts.titulo }}</a>
-            </div>
-            <div class="content_post">
-                <label for="mansagem_post">Categoria: </label><br>
-                <p name="mansagem_post">{{ posts.categoria }}</p>
-            </div>
-            <div class="content_post">
-                <label for="mansagem_post">Mensagem: </label><br>
-                <p name="mansagem_post">{{ posts.publicacao }}</p>
-            </div>
-            <div class="content_post">
-                <label for="data_post">Publicado em: </label>
-                <p name="data_post">{{ posts.date_create }}</p>
-            </div>
-            {% if usuario_tipo == 'AU' %}
-            <a class="button_post_update" href="{% url 'post_update' posts.id %}" title="Editar publicação">
-                Editar
-            </a>
-            <button class="button_post_delete" onclick="alert_delete('{{ posts.id }}')">DELETAR</button>
-            {% endif %}
-        </div>
-    </a>
-    {% endfor %}
+    <div class="post">
+        <table>
+            <thead>
+                <th>Usuário</th>
+                <th>Titulo</th>
+                <th>Data</th>
+                {% if usuario_tipo == 'AU' %}
+                <th>Ações</th>
+                {% endif %}
+            </thead>
+            {% for post in posts %}
+            <tbody>
+                <tr>
+                    <td onclick="redirect('{{ post.id }}')">{{ post.autor }}</td>
+                    <td onclick="redirect('{{ post.id }}')">{{ post.titulo }}</td>
+                    <td onclick="redirect('{{ post.id }}')">{{ post.date_create }}</td>
+                    {% if usuario_tipo == 'AU' %}
+                    <td>
+                        <a class="button_post_update" href="{% url 'post_update' post.id %}" title="Editar publicação">
+                            Editar
+                        </a>
+                        <button class="button_post_delete" onclick="alert_delete('{{ post.id }}')">DELETAR</button>
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+            <!-- </a> -->
+            {% endfor %}
+        </table>
+    </div>
     {% if usuario_tipo == 'AU' %}
     <div class="button_categorias">
         <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
@@ -38,18 +42,24 @@
     {% endif %}
     <div class="footer_paginator">
         {% for pagina in posts.paginator.page_range %}
-            {% if posts.number == pagina %}
-            <div class="page_select">
-                <a href="?page={{ pagina }}">{{ pagina }}</a>
-            </div>
-            {% else %}
-            <div>
-                <a href="?page={{ pagina }}">{{ pagina }}</a>
-            </div>
-            {% endif %}
+        {% if posts.number == pagina %}
+        <div class="page_select">
+            <a href="?page={{ pagina }}">{{ pagina }}</a>
+        </div>
+        {% else %}
+        <div>
+            <a href="?page={{ pagina }}">{{ pagina }}</a>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
     <script>
+        function redirect(post_id) {
+            const url = "{% url 'view_post' 123 %}"
+            window.location.assign(url.replace('123', post_id))
+
+        }
+
         function alert_delete(post_id) {
             const confirma_delete = confirm('tem certeza que deseja excluir esta publicação?')
             console.log(post_id)

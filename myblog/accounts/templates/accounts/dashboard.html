@@ -3,13 +3,6 @@
 {% block conteudo %}
     <div class="main_dashboard">
         <h2>Página dashboard</h2>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">
-                    {{ message }} {{ message.tags }}
-                </div> 
-            {% endfor %}
-        {% endif %}
         <span>Olá <b>{{ usuario_name }}</b>, é um grande prazer encontrar você novamente por aqui. :)</span>
     </div>
 {% endblock %}

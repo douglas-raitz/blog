@@ -4,7 +4,6 @@
     <div class="container_users">
         <div class="content_user">
         <h2>Página de usuarios</h2>
-        {{ user_login }}
             <table>
                 <tr>
                     <th>Nome</th>
@@ -12,7 +11,7 @@
                     <th>Usuário</th>
                     <th>Acesso</th>
                 </tr>
-        {% for usuario in user %}          
+                {% for usuario in user %}          
                 <tr>
                     <td>{{ usuario.nome_autor }}</td>
                     <td>{{ usuario.sobrenome }}</td>
@@ -21,7 +20,22 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a class="button_confirm" href="{% url 'cadastro' %}">Novo usuário</a>
+            <div class="box_button_add_user">
+                <a class="button_confirm" href="{% url 'cadastro' %}">Novo usuário</a>
+            </div>
         </div>
+    </div>
+    <div class="footer_paginator">
+        {% for pagina in user.paginator.page_range %}
+            {% if user.number == pagina %}
+                <div class="page_select">
+                    <a href="?p={{ pagina }}">{{ pagina }}</a>
+                </div>
+                {% else %}
+                <div>
+                    <a href="?p={{ pagina }}">{{ pagina }}</a>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

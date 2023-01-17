@@ -26,8 +26,8 @@ class Usuario(models.Model):
         return self.nome_autor
 
 class Post(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING, related_name='categoria')
-    autor = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria')
+    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=255)
     publicacao = models.CharField(max_length=1000)
     date_create = models.DateTimeField(default=timezone.now)
@@ -37,8 +37,8 @@ class Post(models.Model):
 
 
 class Comentario(models.Model):
-    post = models.ForeignKey(Post,on_delete=models.DO_NOTHING)
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     comentario = models.CharField(max_length=1000)
     date_create = models.DateTimeField(default=timezone.now)
 

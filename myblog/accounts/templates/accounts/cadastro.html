@@ -4,7 +4,7 @@
 <div class="main_dashboard">
     <div class="container_register">
         <h1>Cadastro</h1>
-        <form action="{% url 'cadastro' %}" method="POST">
+        <form method="POST" action="{% url 'cadastro' %}">
             {% csrf_token %}
             <div class="inputs_register">
                 <label for="nome">Nome</label>
@@ -38,7 +38,8 @@
                 <label for="senha2">Repetir Senha</label>
                 <input class="input_register" type="password" placeholder="Digite uma senha" name="senha2" id="senha2">
             </div>
-            <div class="box_btn_cadastro">
+            <div class="button_cadastro">
+                <a class="button_cancel" href="{% url 'usuarios' %}">Cancelar</a>
                 <button class="button_confirm" type="submit">Cadastrar</button>
             </div>
         </form>

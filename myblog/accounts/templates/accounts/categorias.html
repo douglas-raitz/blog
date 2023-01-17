@@ -4,13 +4,17 @@
         <div class="content_categoria">
         <h2>Categorias Disponíveis</h2>
             <table>
-                <tr>
-                    <th>Nome</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
                 {% for categoria in categorias %}          
-                <tr>
-                    <td>{{ categoria.nome_categoria }}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>{{ categoria.nome_categoria }}</td>
+                    </tr>
+                </tbody>
                 {% endfor %}
             </table>
             <div class="button_categorias">
