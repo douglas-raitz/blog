@@ -54,12 +54,14 @@ def cadastro(request):
         senha = request.POST.get('senha')
         senha2 = request.POST.get('senha2')
 
-        if User.objects.filter(username=usuario).exists():
-            return render(request, 'accounts/cadastro.html',{
-                print('esse usuario já existe')
-            })
+
+        if Usuario.objects.filter(usuario=usuario):
+            messages.add_message(request, messages.ERROR, 'Nome de usuário já em uso.')
+            return render(request, 'accounts/cadastro.html')
+        
 
         if senha != senha2:
+            messages.add_message(request, messages.ERROR, 'As senhas precisam ser iguais.')
             return render(request, 'accounts/cadastro.html')
 
         if not usuario or not nome or not sobrenome or not data_nascimento or not nivel_acesso or not senha:
@@ -95,8 +97,12 @@ def cadastrar(request):
         senha2 = request.POST.get('senha2')
         
         if senha != senha2:
-            print('As senhas precisam ser iguais!')
-            return redirect('cadastrar')
+            messages.add_message(request, messages.ERROR, 'As senhas precisam ser iguais.')
+            return render(request, 'accounts/cadastro_comum.html')
+
+        if Usuario.objects.filter(usuario=usuario):
+            messages.add_message(request, messages.ERROR, 'Nome de usuário já em uso.')
+            return render(request, 'accounts/cadastro_comum.html')
 
         if not nome or not sobrenome or not usuario or not data_nascimento or not senha:
             messages.add_message(request, messages.ERROR, 'Você precisa adicionar todos os campos para concluir seu cadastro!')
@@ -106,8 +112,9 @@ def cadastrar(request):
             cadastro_comum = Usuario(nome_autor=nome,sobrenome=sobrenome,usuario=usuario,data_nascimento=data_nascimento,senha=senha)
             cadastro_comum.save()
             messages.add_message(request, messages.SUCCESS, 'Cadastro concluido, tudo pronto para você fazer login')
+            return redirect('login')
         except:
-            return redirect('/')
+            return redirect('login')
     
     return render(request, 'accounts/cadastro_comum.html')
 

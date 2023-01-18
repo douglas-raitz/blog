@@ -89,9 +89,9 @@ body{
     justify-content: center;
     margin-bottom: 35px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 800;
-    color: #fff;
-    font-size: 35px;
+    font-weight: 900;
+    color: #41a2fc;
+    font-size: 40px;
     letter-spacing: 2px;
 }
 .input_form{
@@ -317,13 +317,13 @@ table {
     width: 80vw;
 }
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid #696969;
     text-align: left;
     padding: 8px;
 }
   
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #98c8df;
 }
 .button_cadastro{
     display: flex;
@@ -357,7 +357,7 @@ tr:nth-child(even) {
     justify-content: flex-end;
     align-items: center;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 30px;
     text-align: center;
 }
 .button_categorias button{
