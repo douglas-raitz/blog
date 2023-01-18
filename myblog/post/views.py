@@ -71,6 +71,7 @@ def post_create(request):
     try:
         if request.method == 'POST':
             if not categoria_name or not titulo or not publicacao:
+                messages.add_message(request, messages.ERROR, 'Todos os campos precisam ser preenchidos.')
                 return redirect('post_create')
 
             categoria = Categoria.objects.filter(nome_categoria=categoria_name).first()
@@ -83,7 +84,8 @@ def post_create(request):
     
     return render(request, 'post/post_create.html',{
         'categorias': categorias,
-        'usuario_name': usuario_name
+        'usuario_name': usuario_name,
+        'usuario_id': usuario_id,
     })
 
 def post_update(request,post_id):
