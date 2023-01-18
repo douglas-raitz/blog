@@ -58,6 +58,24 @@ body{
 .name_user_login{
     color: #fff;   
 }
+/* SEARCH BAR */
+.box_search{
+    width: 80vw;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.box_search form{
+    display: flex;
+    align-items: center;
+}
+.box_search input{
+    padding: 5px;
+    height: 35px;
+    width: 80%;
+    font-size: 16px;
+    outline: none;
+    border: .8px solid #999999;
+}
 /* TELA DE LOGIN */
 .container_login{
     display: flex;

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Usuario, Categoria
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db.models import Q, Value
 
 # Create your views here.
 def login(request):
@@ -202,4 +203,21 @@ def categoria(request):
     return render(request, 'accounts/categoria.html',{
         'usuario_tipo':usuario_tipo,
         'usuario_id':usuario_id,
+    })
+
+def search(request):
+    usuario_id = request.session['usuario_id']
+    usuario_tipo = request.session['usuario_tipo']
+    termo = request.GET.get('termo')
+
+    if not termo:
+        messages.add_message(request, messages.ERROR, 'O campo de pesquisa não pode ser vazio.')
+        return redirect('categorias')
+    
+    categorias = Categoria.objects.order_by('-id').filter(Q(nome_categoria__icontains=termo))
+    
+    return render(request, 'accounts/search.html',{
+        'categorias':categorias,
+        'usuario_id':usuario_id,
+        'usuario_tipo':usuario_tipo,
     })

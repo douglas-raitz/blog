@@ -2,7 +2,12 @@
 {% block conteudo %}
     <div class="container_categorias">
         <div class="content_categoria">
-        <h2>Categorias Disponíveis</h2>
+            <div class="box_search">
+                <form action="{% url 'search' %}" method="GET">
+                    <input type="text" name="termo" id="termo" value="{{ request.GET.termo }}" placeholder="Digite o nome da categoria..">
+                </form>
+            </div>
+            <h2>Categorias Disponíveis</h2>
             <table>
                 <thead>
                     <tr>
