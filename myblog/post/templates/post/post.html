@@ -3,6 +3,12 @@
 {%block titulo %}Publicações{% endblock%}
 
 {% block conteudo %}
+<div class="box_search">
+    <form action="{% url 'search' %}" method="GET">
+        <input type="text" name="termo" id="termo" value="{{ request.GET.termo }}" placeholder="Pesquisa">
+        <a href="{% url 'post' %}" title="Resetar Pesquisa">X</a>
+    </form>
+</div>
 <div class="main_posts">
     <h1>Publicações</h1>
     <div class="post">

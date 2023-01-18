@@ -3,6 +3,7 @@ from accounts.models import Post, Categoria, Usuario, Comentario
 from accounts.views import login
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.db.models import Q
 
 
 # Create your views here.
@@ -90,6 +91,7 @@ def post_update(request,post_id):
     categorias = Categoria.objects.all()
 
     usuario_tipo = request.session['usuario_tipo']
+    usuario_id = request.session['usuario_id']
 
     if usuario_tipo != 'AU':
         return redirect('post')
@@ -111,6 +113,7 @@ def post_update(request,post_id):
     return render(request, 'post/post_update.html',{
         'id_post':id_post,
         'categorias':categorias,
+        'usuario_id':usuario_id,
     })
 
 def post_delete(request,post_id):
@@ -123,3 +126,24 @@ def post_delete(request,post_id):
     id_post.delete()
     print('Deletou um usuario com sucesso!')
     return redirect('post')
+
+def search(request):
+    usuario_id = request.session['usuario_id']
+    usuario_tipo = request.session['usuario_tipo']
+    termo = request.GET.get('termo')
+
+    if not termo:
+        messages.add_message(request, messages.ERROR, 'O campo de pesquisa não pode ser vazio.')
+        return redirect('post')
+        
+    posts = Post.objects.order_by('-date_create').filter(Q(titulo__icontains=termo))
+    
+    if not posts:
+        messages.add_message(request, messages.ERROR, 'Não contém nenhuma publicação com este titulo.')
+        return redirect('post')
+
+    return render(request, 'post/search.html',{
+        'posts':posts,
+        'usuario_id':usuario_id,
+        'usuario_tipo':usuario_tipo,
+    })

@@ -64,6 +64,14 @@ body{
     align-items: center;
     margin-bottom: 20px;
 }
+.box_search a{
+    padding: 7px 12px;
+    border: 1px solid #696969;
+    text-decoration: none;
+    color: #fff;
+    background-color: #41a2fc;
+
+}
 .box_search form{
     display: flex;
     align-items: center;
