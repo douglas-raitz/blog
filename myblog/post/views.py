@@ -31,6 +31,7 @@ def view_post(request,post_id):
     comentarios = Comentario.objects.all()
     
     usuario_id = request.session['usuario_id']
+    usuario_tipo = request.session['usuario_tipo']
 
     if request.method == 'POST':
         usuario = Usuario.objects.get(id=usuario_id)
@@ -42,6 +43,7 @@ def view_post(request,post_id):
                 'post': post,
                 'comentarios':comentarios,
                 'usuario_id':usuario_id,
+                'usuario_tipo':usuario_tipo,
             })
 
         comentario_save = Comentario(comentario=comentario,usuario=usuario,post=post)
@@ -51,6 +53,7 @@ def view_post(request,post_id):
         'post': post,
         'comentarios':comentarios,
         'usuario_id':usuario_id,
+        'usuario_tipo':usuario_tipo,
     })
 
 

@@ -57,12 +57,18 @@ def cadastro(request):
 
         if Usuario.objects.filter(usuario=usuario):
             messages.add_message(request, messages.ERROR, 'Nome de usuário já em uso.')
-            return render(request, 'accounts/cadastro.html')
+            return render(request, 'accounts/cadastro.html',{
+                'usuario_id':usuario_id,
+                'usuario_tipo':usuario_tipo,
+            })
         
 
         if senha != senha2:
             messages.add_message(request, messages.ERROR, 'As senhas precisam ser iguais.')
-            return render(request, 'accounts/cadastro.html')
+            return render(request, 'accounts/cadastro.html',{
+                'usuario_id':usuario_id,
+                'usuario_tipo':usuario_tipo,
+            })
 
         if not usuario or not nome or not sobrenome or not data_nascimento or not nivel_acesso or not senha:
             messages.add_message(request, messages.ERROR, 'Todos os campos precisam ser preenchidos!')
