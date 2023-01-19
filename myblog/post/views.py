@@ -81,6 +81,7 @@ def post_create(request):
             autor = Usuario.objects.filter(id=usuario_id).first()
             post = Post(categoria=categoria,autor=autor,titulo=titulo,publicacao=publicacao)
             post.save()
+            messages.add_message(request, messages.SUCCESS, 'Publicação criada com sucesso!')
             return redirect('post')
     except:
         return redirect('post')
@@ -110,9 +111,10 @@ def post_update(request,post_id):
             id_post.titulo = request.POST.get('titulo')
             id_post.publicacao = request.POST.get('publicacao')
             id_post.save(update_fields=['categoria','titulo','publicacao'])
+            messages.add_message(request, messages.SUCCESS, 'Publicação atualizada com sucesso!')
             return redirect('post')
         except:
-            print('Algo deu errado')
+            messages.add_message(request, messages.ERROR, 'Ops, algo deu errado.')
             return redirect('post')
 
     return render(request, 'post/post_update.html',{

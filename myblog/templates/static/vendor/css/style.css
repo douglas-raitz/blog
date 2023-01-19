@@ -273,6 +273,7 @@ body{
     padding: 12px;
     background-color: #fff;
     width: 600px;
+    margin-top: 20px;
 }
 .box_btn_cadastro{
     display: flex;
@@ -323,11 +324,12 @@ body{
 /* PAGINA USUARIOS */
 .container_users{
     display: flex;
-    justify-content: space-between;
     width: 80vw;
 }
-.content_user h2{
-    margin-bottom: 40px;
+.content_user h1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 .content_user a{
     position: absolute;
@@ -357,6 +359,11 @@ tr:nth-child(even) {
 }
 
 /* CATEGORIA */
+.content_categoria h1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
 .content_categoria a{
     position: absolute;
     margin-top: 15px;
@@ -436,6 +443,7 @@ tr:nth-child(even) {
     min-width: 80vw;
     max-height: 60vh;
     min-height: 60vh;
+    padding: 5px;
 }
 .input_post_create select{
     padding: 5px;
