@@ -3,14 +3,14 @@
 {%block titulo %}Publicações{% endblock%}
 
 {% block conteudo %}
-<div class="box_search">
-    <form action="{% url 'search' %}" method="GET">
-        <input type="text" name="termo" id="termo" value="{{ request.GET.termo }}" placeholder="Pesquisa">
-        <a href="{% url 'post' %}" title="Resetar Pesquisa">X</a>
-    </form>
-</div>
 <div class="main_posts">
     <h1>Publicações</h1>
+    <div class="box_search">
+        <form action="{% url 'search' %}" method="GET">
+            <input type="text" name="termo" id="termo" value="{{ request.GET.termo }}" placeholder="Pesquisa">
+            <a href="{% url 'post' %}" title="Resetar Pesquisa">X</a>
+        </form>
+    </div>
     <div class="post">
         <table>
             <thead>
@@ -32,7 +32,8 @@
                         <a class="button_post_update" href="{% url 'post_update' post.id %}" title="Editar publicação">
                             Editar
                         </a>
-                        <button class="button_post_delete" onclick="alert_delete('{{ post.id }}')">DELETAR</button>
+                        <!-- <button class="button_post_delete" onclick="alert_delete('{{ post.id }}')">DELETAR</button> -->
+                        <a class="button_post_delete" href="{% url 'post_verified' post.id %}">Deletar</a>
                     </td>
                     {% endif %}
                 </tr>
@@ -64,14 +65,6 @@
             const url = "{% url 'view_post' 123 %}"
             window.location.assign(url.replace('123', post_id))
 
-        }
-
-        function alert_delete(post_id) {
-            const confirma_delete = confirm('tem certeza que deseja excluir esta publicação?')
-            if (confirma_delete) {
-                const url = "{% url 'post_delete' 123 %}"
-                window.location.assign(url.replace('123', post_id))
-            }
         }
 
     </script>

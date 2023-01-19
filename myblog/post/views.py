@@ -127,10 +127,29 @@ def post_delete(request,post_id):
     if usuario_tipo != 'AU':
         return redirect('post')
 
+    try:
+        id_post = Post.objects.get(id=post_id)
+        id_post.delete()
+        messages.add_message(request, messages.SUCCESS, 'Publicação deletada com sucesso!')
+        return redirect('post')
+    except:
+        messages.add_message(request, messages.ERROR, 'Não foi possível excluir essa publicação.')
+        return redirect('post')
+
+
+def post_verified(request, post_id):
+    post = Post.objects.all()
     id_post = Post.objects.get(id=post_id)
-    id_post.delete()
-    print('Deletou um usuario com sucesso!')
-    return redirect('post')
+
+    usuario_tipo = request.session['usuario_tipo']
+    usuario_id = request.session['usuario_id']
+    
+    return render(request, 'post/post_verified.html',{
+        'id_post':id_post,
+        'posts':post,
+        'usuario_tipo':usuario_tipo,
+        'usuario_id':usuario_id,
+    })
 
 def search(request):
     usuario_id = request.session['usuario_id']

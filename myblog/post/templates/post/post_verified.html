@@ -1,0 +1,15 @@
+{% extends 'post/post.html'%}
+<h1>pagina de verificacao</h1>
+{% block conteudo %}
+    <div class="container_modal_delete_post">
+        <div class="modal_delete_post">
+            <span>Você tem certeza que deseja deletar essa publicação ?</span>
+            <div class="form_modal_delete_post">
+                <form action="{% url 'post_delete' id_post.id %}" method="POST">
+                    <a class="form_modal_delete_cancel" href="{% url 'post' %}">Cancelar</a>
+                    <a class="form_modal_delete_confirm" href="{% url 'post_delete' id_post.id%}">Confirmar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
