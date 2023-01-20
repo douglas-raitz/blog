@@ -300,6 +300,12 @@ body{
 .button_confirm:hover, .button_coments:hover{
     background-color: #67b4fc;
 }
+.btn_pdf{
+    background-color: #999999;
+}
+.btn_pdf:hover{
+    background-color: #777777;
+}
 .inputs_register, h1{
     display: flex;
     align-items: center;

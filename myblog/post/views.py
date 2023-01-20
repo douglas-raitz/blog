@@ -4,6 +4,8 @@ from accounts.views import login
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
 
 
 # Create your views here.
@@ -173,3 +175,49 @@ def search(request):
         'usuario_id':usuario_id,
         'usuario_tipo':usuario_tipo,
     })
+
+
+def drawTitulo(pdf,x=210, y=800):
+    pdf.drawString( x, y, 'Relatorio de publicações')
+    return x,y
+
+def drawHeader(pdf, x=0, y=770):
+    pdf.setFontSize(10)
+    pdf.drawString(20, y, 'Autor')
+    pdf.drawString(100, y, 'Titulo')
+    pdf.drawString(300, y, 'Categoria')
+    pdf.drawString(480, y, 'Data')
+    return x,y
+
+def reserva_linha(pdf,linha):
+    linha -= 20
+    if linha <= 0:
+        linha = 745
+        pdf.showPage()
+        drawTitulo(pdf)
+        drawHeader(pdf)
+    return linha
+
+def relatorio(request):
+    usuario_tipo = request.session['usuario_tipo']
+    if usuario_tipo != 'AD':
+        return redirect('post')
+
+    posts = Post.objects.all()
+
+    pdf = canvas.Canvas('./relatorio.pdf', pagesize=A4)
+    drawTitulo(pdf)
+    drawHeader(pdf)
+    linha = 765
+    for post in posts:
+        linha = reserva_linha(pdf,linha)
+
+        pdf.drawString(20, linha , f'{post.autor}')
+        pdf.drawString(100, linha , f'{post.titulo}')
+        pdf.drawString(300, linha , f'{post.categoria}')
+        pdf.drawString(480, linha , f'{post.date_create.strftime("%H:%M:%S %d/%m/%Y")}')
+                     
+    print(linha)
+    pdf.save()
+    messages.add_message(request,messages.INFO, 'PDF gerado com sucesso.')
+    return redirect('post')

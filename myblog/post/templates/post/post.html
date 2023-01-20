@@ -47,6 +47,11 @@
         <a class="button_confirm" href="{% url 'post_create' %}">Criar publicação</a>
     </div>
     {% endif %}
+    {% if usuario_tipo == 'AD' %}
+    <div class="button_categorias">
+        <a class="button_confirm btn_pdf" href="{% url 'relatorio' %}">Gerar relatório PDF</a>
+    </div>
+    {% endif %}
     <div class="footer_paginator">
         {% for pagina in posts.paginator.page_range %}
         {% if posts.number == pagina %}
