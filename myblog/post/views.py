@@ -186,6 +186,7 @@ def drawTitulo(pdf,x=210, y=800):
 
 def data_gerado(pdf):
     data_gerado = timezone.now()
+    
     pdf.setFontSize(8)
     pdf.drawString( 455, 800, f'Gerado em: {data_gerado.astimezone().strftime("%d / %m / %y ás %H:%M:%S")}')
 
@@ -209,7 +210,6 @@ def reserva_linha(pdf,linha):
 
 def relatorio(request):
     usuario_tipo = request.session['usuario_tipo']
-    
 
     if usuario_tipo != 'AD':
         return redirect('post')
@@ -226,7 +226,7 @@ def relatorio(request):
         pdf.drawString(20, linha , f'{post.autor}')
         pdf.drawString(100, linha , f'{post.titulo}')
         pdf.drawString(300, linha , f'{post.categoria}')
-        pdf.drawString(480, linha , f'{post.date_create.strftime("%H:%M:%S %d/%m/%Y")}')
+        pdf.drawString(480, linha , f'{post.date_create.astimezone().strftime("%H:%M:%S %d/%m/%Y")}')
                      
     pdf.save()
     messages.add_message(request,messages.INFO, 'PDF gerado com sucesso.')
