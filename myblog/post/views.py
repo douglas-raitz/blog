@@ -7,6 +7,8 @@ from django.db.models import Q
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from django.utils import timezone
+from django.http import FileResponse
+import io
 
 
 # Create your views here.
@@ -201,7 +203,7 @@ def drawHeader(pdf, x=0, y=770):
 
 def reserva_linha(pdf,linha):
     linha -= 20
-    if linha <= 0:
+    if linha <= 10:
         linha = 745
         pdf.showPage()
         drawTitulo(pdf)
@@ -216,7 +218,9 @@ def relatorio(request):
 
     posts = Post.objects.all()
 
-    pdf = canvas.Canvas('./relatorio.pdf', pagesize=A4)
+    gera_pdf = io.BytesIO()
+    
+    pdf = canvas.Canvas(gera_pdf, pagesize=A4)
     drawTitulo(pdf)
     drawHeader(pdf)
     linha = 765
@@ -229,5 +233,5 @@ def relatorio(request):
         pdf.drawString(480, linha , f'{post.date_create.astimezone().strftime("%H:%M:%S %d/%m/%Y")}')
                      
     pdf.save()
-    messages.add_message(request,messages.INFO, 'PDF gerado com sucesso.')
-    return redirect('post')
+    gera_pdf.seek(0)
+    return FileResponse(gera_pdf, as_attachment=True, filename='relatorio.pdf')
