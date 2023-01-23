@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
+from django.utils import timezone
 
 
 # Create your views here.
@@ -178,8 +179,16 @@ def search(request):
 
 
 def drawTitulo(pdf,x=210, y=800):
-    pdf.drawString( x, y, 'Relatorio de publicações')
+    pdf.drawString( x, y, 'Relatório de publicações')
+    data_gerado(pdf)
     return x,y
+
+
+def data_gerado(pdf):
+    data_gerado = timezone.now()
+    pdf.setFontSize(8)
+    pdf.drawString( 455, 800, f'Gerado em: {data_gerado.astimezone().strftime("%d / %m / %y ás %H:%M:%S")}')
+
 
 def drawHeader(pdf, x=0, y=770):
     pdf.setFontSize(10)
@@ -200,6 +209,8 @@ def reserva_linha(pdf,linha):
 
 def relatorio(request):
     usuario_tipo = request.session['usuario_tipo']
+    
+
     if usuario_tipo != 'AD':
         return redirect('post')
 
@@ -217,7 +228,6 @@ def relatorio(request):
         pdf.drawString(300, linha , f'{post.categoria}')
         pdf.drawString(480, linha , f'{post.date_create.strftime("%H:%M:%S %d/%m/%Y")}')
                      
-    print(linha)
     pdf.save()
     messages.add_message(request,messages.INFO, 'PDF gerado com sucesso.')
     return redirect('post')
