@@ -32,13 +32,11 @@
                         <a class="button_post_update" href="{% url 'post_update' post.id %}" title="Editar publicação">
                             Editar
                         </a>
-                        <!-- <button class="button_post_delete" onclick="alert_delete('{{ post.id }}')">DELETAR</button> -->
                         <a class="button_post_delete" href="{% url 'post_verified' post.id %}">Deletar</a>
                     </td>
                     {% endif %}
                 </tr>
             </tbody>
-            <!-- </a> -->
             {% endfor %}
         </table>
     </div>

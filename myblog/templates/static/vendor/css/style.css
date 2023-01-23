@@ -60,13 +60,18 @@ body{
     width: 80vw;
     align-items: center;
     margin-bottom: 20px;
+    border: 1px solid #999999;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 3px;
 }
 .box_search a{
     padding: 7px 12px;
-    border: 1px solid #696969;
     text-decoration: none;
     color: #fff;
     background-color: #41a2fc;
+    border-radius: 20px;
+    margin-right: 5px;
 }
 .box_search form{
     display: flex;
@@ -78,7 +83,8 @@ body{
     width: 100%;
     font-size: 16px;
     outline: none;
-    border: .8px solid #999999;
+    border:none;
+    border-radius: 25px;
 }
 /* TELA DE LOGIN */
 .container_login{
