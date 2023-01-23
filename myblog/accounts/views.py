@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required
-from .models import Usuario, Categoria
+from .models import Usuario, Categoria, Post
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -22,6 +22,7 @@ def login(request):
         messages.add_message(request, messages.ERROR, 'OPS, Você precisa ter um usuário cadastrado para ter acesso!.')
         return redirect('login')
     else:
+        posts = Post.objects.order_by('-date_create')
         request.session['usuario_id'] = user.id
         request.session['usuario_name'] = user.nome_autor
         request.session['usuario_tipo'] = user.tipo
@@ -29,8 +30,14 @@ def login(request):
         usuario_id = request.session['usuario_id']
         usuario_name = request.session['usuario_name']
         usuario_tipo = request.session['usuario_tipo']
+
+        paginator = Paginator(posts,10)
+
+        page_number = request.GET.get('page')
+        posts = paginator.get_page(page_number)
         
-        return render(request, 'accounts/dashboard.html', {
+        return render(request, 'post/post.html', {
+            "posts":posts,
             "usuario_id": usuario_id,
             "usuario_name": usuario_name,
             "usuario_tipo": usuario_tipo,
@@ -126,14 +133,30 @@ def cadastrar(request):
 
 def ver_usuario(request, usuario_id):
     usuario = Usuario.objects.get(id=usuario_id)
+    usuario_tipo = request.session['usuario_tipo']
+    
+    if usuario_tipo != 'AD':
+        return redirect('post')
+
     return render(request, 'accounts/ver_usuario.html',{
         'usuario': usuario
     })
 
-def logout(request):
-    auth.logout(request)
-    return redirect('login')
 
+def usuario_delete(request,usuario_id):
+    usuario_tipo = request.session['usuario_tipo']
+    
+    if usuario_tipo != 'AD':
+        return redirect('post')
+
+    id_usuario = Usuario.objects.get(id=usuario_id)
+    try:
+        id_usuario.delete()
+        messages.add_message(request, messages.SUCCESS, 'Usuário excluído com sucesso!')
+        return redirect('usuarios')
+    except:
+        messages.add_message(request, messages.ERROR, 'Algo deu errado, não foi possível excluir este usuário.')
+        return redirect('usuarios')
 
 def dashboard(request):
     usuario_id = request.session['usuario_id']
@@ -209,3 +232,7 @@ def categoria(request):
         'usuario_tipo':usuario_tipo,
         'usuario_id':usuario_id,
     })
+
+def logout(request):
+    auth.logout(request)
+    return redirect('login')

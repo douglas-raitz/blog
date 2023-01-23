@@ -196,8 +196,25 @@ body{
 }
 .main_views_usuario{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 100vh;
+    background-color: #444141;
+    z-index: 0;
+}
+.box_views_usuario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 25px;
+    z-index: 1;
+    backdrop-filter: blur(15px);
+    background-color: #e2e2e2;
 }
 .main_views_usuario h1{
     margin-bottom: 10px;
@@ -208,7 +225,18 @@ body{
 .main_views_usuario dd{
     margin-bottom: 10px;
 }
-
+.confirm_delete_user{
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.confirm_delete_user a{
+    padding: 8px 17px;
+    text-decoration: none;
+}
 /* TELA DE POST */
 .main_posts{
     display: flex;
@@ -343,7 +371,7 @@ body{
     justify-content: center;
     margin-bottom: 30px;
 }
-.content_user a{
+.content_user .button_confirm{
     position: absolute;
     left:79vw;
     margin-top: 15px;
@@ -353,7 +381,7 @@ body{
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 80vw;
+    width: 78vw;
 }
 td, th {
     border: 1px solid #696969;

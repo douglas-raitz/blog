@@ -2,16 +2,15 @@
 
 {%block conteudo%}
 <div class="main_views_usuario">
-    <h1>{{ usuario.nome_autor }} {{ usuario.sobrenome }}</h1>
-    <dl>
-        <dt>id</dt>
-        <dd>{{ usuario.id }}</dd>
-
-        <dt>Data de nascimento</dt>
-        <dd>{{ usuario.data_nascimento }}</dd>
-
-        <dt>Data criação</dt>
-        <dd>{{ usuario.date_create }}</dd>
-    </dl>
+    <div class="box_views_usuario">
+        <h1>{{ usuario.nome_autor }} {{ usuario.sobrenome }}</h1>
+        <p>Você tem certeza que deseja excluir o usuário <b>{{ usuario.usuario }}</b> ?</p>
+        <form action="{% url 'usuario_delete' usuario.id %}" method="POST">
+            <div class="confirm_delete_user">
+                <a href="{% url 'usuarios'%}" class="form_modal_delete_cancel">Cancelar</a>
+                <a href="{% url 'usuario_delete' usuario.id %}" class="form_modal_delete_confirm">Confirmar</a>
+            </div>
+        </form>
+    </div>
 </div>
 {%endblock%}
