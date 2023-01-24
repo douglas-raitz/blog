@@ -498,6 +498,7 @@ tr:nth-child(even) {
     color: red !important;
     outline: none;
     border: none;
+    text-decoration: none;
 }
 .button_post_delete:hover{
     cursor: pointer;

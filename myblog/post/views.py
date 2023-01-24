@@ -193,21 +193,13 @@ def data_gerado(pdf):
     pdf.drawString( 455, 800, f'Gerado em: {data_gerado.astimezone().strftime("%d / %m / %y ás %H:%M:%S")}')
 
 
-def drawHeader(pdf, x=0, y=770):
-    pdf.setFontSize(10)
-    pdf.drawString(20, y, 'Autor')
-    pdf.drawString(100, y, 'Titulo')
-    pdf.drawString(300, y, 'Categoria')
-    pdf.drawString(480, y, 'Data')
-    return x,y
-
 def reserva_linha(pdf,linha):
     linha -= 20
     if linha <= 10:
         linha = 745
         pdf.showPage()
         drawTitulo(pdf)
-        drawHeader(pdf)
+        
     return linha
 
 def relatorio(request):
@@ -217,21 +209,98 @@ def relatorio(request):
         return redirect('post')
 
     posts = Post.objects.all()
-
-    gera_pdf = io.BytesIO()
     
-    pdf = canvas.Canvas(gera_pdf, pagesize=A4)
+    pdf = canvas.Canvas('./relatorio.pdf',pagesize=A4)
     drawTitulo(pdf)
-    drawHeader(pdf)
-    linha = 765
+    
+    linha = 770
     for post in posts:
         linha = reserva_linha(pdf,linha)
+        pdf.drawString(20, linha, 'Autor:')
+        pdf.drawString(80, linha, f'{post.autor}')
+        linha = reserva_linha(pdf,linha)
 
-        pdf.drawString(20, linha , f'{post.autor}')
-        pdf.drawString(100, linha , f'{post.titulo}')
-        pdf.drawString(300, linha , f'{post.categoria}')
-        pdf.drawString(480, linha , f'{post.date_create.astimezone().strftime("%H:%M:%S %d/%m/%Y")}')
-                     
+        pdf.drawString(20, linha, 'Titulo:')
+        pdf.drawString(80, linha, f'{post.titulo}')
+        linha = reserva_linha(pdf,linha)
+        
+        pdf.drawString(20, linha, 'Categoria:')
+        pdf.drawString(80, linha, f'{post.categoria}')
+        linha = reserva_linha(pdf,linha)
+        
+        pdf.drawString(20, linha, 'Data:')
+        pdf.drawString(80, linha, f'{post.date_create}')
+        linha = reserva_linha(pdf,linha)
+        
+        pdf.drawString(20, linha, 'Publicação:')
+
+        x = 80
+        if len(post.publicacao) > 130:
+            gen_linhas = generator_linhas(post.publicacao)
+            linha_publicacao = next(gen_linhas)
+            pdf.drawString(x, linha, linha_publicacao)
+
+            for linha_publicacao in gen_linhas:
+                linha = reserva_linha(pdf,linha)
+                pdf.drawString(x, linha, linha_publicacao)
+      
+        else:
+            pdf.drawString(80, linha, f'{post.publicacao}')
+        
+        linha = reserva_linha(pdf,linha)
+
     pdf.save()
-    gera_pdf.seek(0)
-    return FileResponse(gera_pdf, as_attachment=True, filename='relatorio.pdf')
+    return redirect('post')
+
+def generator_linhas(string,comp_maximo=137):
+    generator_de_palavras = (
+        palavra_formatada
+        for palavra in string.split(' ')
+        for palavra_formatada in generator_palavras(palavra, comp_maximo)
+            
+    )
+    comp_total = len(string)
+
+    i = 0
+    while comp_total >= 0 and i < 10:
+        nova_lista = []
+        comp_linha = 0
+        # print(comp_total,comp_linha,i)
+        for palavra in generator_de_palavras:
+            
+            if (len(palavra) + 1 + comp_linha) > comp_maximo:
+                if comp_linha:
+                    break
+
+                if len(palavra) == comp_maximo:
+                    nova_lista = [palavra]
+                    comp_linha += len(palavra)
+                    break
+                
+                break
+            comp_linha += 1 + len(palavra)
+            nova_lista.append(palavra)
+        comp_total -= comp_linha
+        yield ' '.join(nova_lista)
+        # print(comp_total,comp_linha,i)
+        i += 1
+        
+def generator_palavras(string,comp_maximo=137):
+    for palavra in string.split(' '):
+        if len(palavra) <= comp_maximo:
+            yield palavra
+            continue
+        try:
+            parte_palavra = ''
+            generator_index_linha_da_palavra = (
+                enumerate(range(comp_maximo -1, len(palavra), comp_maximo))
+            )
+            i,x = next(generator_index_linha_da_palavra)
+            parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
+
+            while True:
+                i,x = next(generator_index_linha_da_palavra)
+                yield parte_palavra
+                parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
+        except:
+            yield parte_palavra

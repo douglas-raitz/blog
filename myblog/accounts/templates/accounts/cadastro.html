@@ -1,48 +1,48 @@
 {% extends 'base.html' %}
 {%block titulo %}Cadastro{% endblock %}
 {%block conteudo %}
-<div class="main_dashboard">
-    <div class="container_register">
-        <h1>Cadastro</h1>
-        <form method="POST" action="{% url 'cadastro' %}">
-            {% csrf_token %}
-            <div class="inputs_register">
-                <label for="nome">Nome</label>
-                <input class="input_register" type="text" placeholder="Digite um nome" value="{{ request.POST.nome }}" name="nome" id="nome">
-            </div>
-            <div class="inputs_register">
-                <label for="sobrenome">Sobrenome</label>
-                <input class="input_register" type="text" placeholder="Digite um sobrenome" value="{{ request.POST.sobrenome }}" name="sobrenome" id="sobrenome">
-            </div>
-            <div class="inputs_register">
-                <label for="usuario">Usuário</label>
-                <input class="input_register" type="text" placeholder="Digite um nome de usuário" value="{{ request.POST.usuario }}" name="usuario" id="usuario">
-            </div>
-            <div class="inputs_register">
-                <label for="data_nascimento">Data de nascimento</label>
-                <input class="input_register" type="date" placeholder="Digite a data de nascimento" value="{{ request.POST.data_nascimento }}" name="data_nascimento" id="data_nascimento">
-            </div>
-            <div class="inputs_register">
-                <label for="nivel_acesso">Nível de acesso</label>
-                <select class="input_register" name="nivel_acesso" id="nivel_acesso">
-                    <option value="CO">Comum</option>
-                    <option value="AU">Autor</option>
-                    <option value="AD">Administrador</option>
-                </select>
-            </div>
-            <div class="inputs_register">
-                <label for="senha">Senha</label>
-                <input class="input_register" type="password" placeholder="Digite uma senha" name="senha" id="senha">
-            </div>
-            <div class="inputs_register">
-                <label for="senha2">Repetir Senha</label>
-                <input class="input_register" type="password" placeholder="Digite uma senha" name="senha2" id="senha2">
-            </div>
-            <div class="button_cadastro">
-                <a class="button_cancel" href="{% url 'usuarios' %}">Cancelar</a>
-                <button class="button_confirm" type="submit">Cadastrar</button>
-            </div>
-        </form>
+    <div class="main_dashboard">
+        <div class="container_register">
+            <h1>Cadastro</h1>
+            <form method="POST" action="{% url 'cadastro' %}">
+                {% csrf_token %}
+                <div class="inputs_register">
+                    <label for="nome">Nome</label>
+                    <input class="input_register" type="text" placeholder="Digite um nome" value="{{ request.POST.nome }}" name="nome" id="nome">
+                </div>
+                <div class="inputs_register">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input class="input_register" type="text" placeholder="Digite um sobrenome" value="{{ request.POST.sobrenome }}" name="sobrenome" id="sobrenome">
+                </div>
+                <div class="inputs_register">
+                    <label for="usuario">Usuário</label>
+                    <input class="input_register" type="text" placeholder="Digite um nome de usuário" value="{{ request.POST.usuario }}" name="usuario" id="usuario">
+                </div>
+                <div class="inputs_register">
+                    <label for="data_nascimento">Data de nascimento</label>
+                    <input class="input_register" type="date" placeholder="Digite a data de nascimento" value="{{ request.POST.data_nascimento }}" name="data_nascimento" id="data_nascimento">
+                </div>
+                <div class="inputs_register">
+                    <label for="nivel_acesso">Nível de acesso</label>
+                    <select class="input_register" name="nivel_acesso" id="nivel_acesso">
+                        <option value="CO">Comum</option>
+                        <option value="AU">Autor</option>
+                        <option value="AD">Administrador</option>
+                    </select>
+                </div>
+                <div class="inputs_register">
+                    <label for="senha">Senha</label>
+                    <input class="input_register" type="password" placeholder="Digite uma senha" name="senha" id="senha">
+                </div>
+                <div class="inputs_register">
+                    <label for="senha2">Repetir Senha</label>
+                    <input class="input_register" type="password" placeholder="Digite uma senha" name="senha2" id="senha2">
+                </div>
+                <div class="button_cadastro">
+                    <a class="button_cancel" href="{% url 'usuarios' %}">Cancelar</a>
+                    <button class="button_confirm" type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 {%endblock%}
