@@ -18,8 +18,10 @@
                     <td>{{ usuario.sobrenome }}</td>
                     <td>{{ usuario.usuario }}</td>
                     <td>{{ usuario.tipo }}</td>
-                    <td><a class="button_post_delete" href="{% url 'ver_usuario' usuario.id %}" title="Deletar usuário">Deletar</a></td>
-                </tr>
+                    <td>
+                        <a class="button_post_update" href="{% url 'usuario_update' usuario.id %}" title="Editar usuário">Editar</a>
+                        <a class="button_post_delete" href="{% url 'ver_usuario' usuario.id %}" title="Deletar usuário">Deletar</a></td>
+                    </tr>
                 {% endfor %}
             </table>
             <div class="box_button_add_user">

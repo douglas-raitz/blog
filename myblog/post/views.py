@@ -209,8 +209,9 @@ def relatorio(request):
         return redirect('post')
 
     posts = Post.objects.all()
-    
-    pdf = canvas.Canvas('./relatorio.pdf',pagesize=A4)
+    gera_pdf = io.BytesIO()
+
+    pdf = canvas.Canvas(gera_pdf, pagesize=A4)
     drawTitulo(pdf)
     
     linha = 770
@@ -229,7 +230,7 @@ def relatorio(request):
         linha = reserva_linha(pdf,linha)
         
         pdf.drawString(20, linha, 'Data:')
-        pdf.drawString(80, linha, f'{post.date_create}')
+        pdf.drawString(80, linha, f'{post.date_create.astimezone().strftime("%d / %m / %y  %H:%M:%S")}')
         linha = reserva_linha(pdf,linha)
         
         pdf.drawString(20, linha, 'Publicação:')
@@ -250,7 +251,9 @@ def relatorio(request):
         linha = reserva_linha(pdf,linha)
 
     pdf.save()
-    return redirect('post')
+    gera_pdf.seek(0)
+    return FileResponse(gera_pdf, as_attachment=True, filename='relatorio.pdf')
+
 
 def generator_linhas(string,comp_maximo=137):
     generator_de_palavras = (
@@ -290,17 +293,18 @@ def generator_palavras(string,comp_maximo=137):
         if len(palavra) <= comp_maximo:
             yield palavra
             continue
-        try:
-            parte_palavra = ''
-            generator_index_linha_da_palavra = (
-                enumerate(range(comp_maximo -1, len(palavra), comp_maximo))
-            )
-            i,x = next(generator_index_linha_da_palavra)
-            parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
+        
+    try:
+        parte_palavra = ''
+        generator_index_linha_da_palavra = (
+            enumerate(range(comp_maximo -1, len(palavra), comp_maximo))
+        )
+        i,x = next(generator_index_linha_da_palavra)
+        parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
 
-            while True:
-                i,x = next(generator_index_linha_da_palavra)
-                yield parte_palavra
-                parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
-        except:
+        while True:
+            i,x = next(generator_index_linha_da_palavra)
             yield parte_palavra
+            parte_palavra = palavra[i*comp_maximo:((i+1) * comp_maximo)]
+    except:
+        yield parte_palavra

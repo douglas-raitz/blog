@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Usuario, Categoria, Post
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 
 # Create your views here.
+
 def login(request):
 
     if request.method != 'POST':
@@ -142,6 +144,39 @@ def ver_usuario(request, usuario_id):
         'usuario': usuario
     })
 
+def usuario_update(request,usuario_id):
+    id_usuario = Usuario.objects.filter(id=usuario_id).first()
+    usuario_id = request.session['usuario_id']
+    usuario_tipo = request.session['usuario_tipo']
+
+    if usuario_tipo != 'AD':
+        return redirect('login')
+
+    if request.method == 'POST':
+
+        try:
+            if request.POST.get('senha2') != request.POST.get('senha'):
+                messages.add_message(request, messages.ERROR, 'As senhas precisam ser iguais.')
+                return redirect('usuario_edit')
+                
+            id_usuario.nome_autor = request.POST.get('nome')
+            id_usuario.sobrenome = request.POST.get('sobrenome')
+            id_usuario.usuario = request.POST.get('usuario')
+            id_usuario.data_nascimento = request.POST.get('data_nascimento')
+            id_usuario.tipo = request.POST.get('nivel_acesso')
+            id_usuario.senha = request.POST.get('senha')
+            id_usuario.save()
+            messages.add_message(request, messages.SUCCESS, 'Usuário editado com sucesso!')
+            return redirect('usuarios')
+        except:
+            messages.add_message(request, messages.ERROR, 'Não foi possível editar este usuário.')
+    
+    return render(request, 'accounts/usuario_edit.html',{
+        'id_usuario':id_usuario,
+        'usuario_id': usuario_id,
+        'usuario_tipo': usuario_tipo,
+
+    })
 
 def usuario_delete(request,usuario_id):
     usuario_tipo = request.session['usuario_tipo']

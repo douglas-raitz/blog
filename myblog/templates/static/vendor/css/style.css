@@ -390,7 +390,7 @@ td, th {
 }
   
 tr:nth-child(even) {
-    background-color: #98c8df;
+    background-color: #afcdeaca;
 }
 .button_cadastro{
     display: flex;
@@ -492,6 +492,7 @@ tr:nth-child(even) {
 .button_post_update{
     color: blue !important;
     margin-right: 15px;
+    text-decoration: none;
 }
 .button_post_delete{
     background-color: transparent;

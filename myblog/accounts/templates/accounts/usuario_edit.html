@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%block titulo %}Cadastro{% endblock %}
+{%block conteudo %}
+    <div class="main_dashboard">
+        <div class="container_register">
+            <h1>Editar usuário</h1>
+            <form method="POST" action="{% url 'usuario_update' id_usuario.id %}">
+                {% csrf_token %}
+                <div class="inputs_register">
+                    <label for="nome">Nome</label>
+                    <input class="input_register" type="text" placeholder="Digite um nome" value="{{ id_usuario }}" name="nome" id="nome">
+                </div>
+                <div class="inputs_register">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input class="input_register" type="text" placeholder="Digite um sobrenome" value="{{ id_usuario.sobrenome }}" name="sobrenome" id="sobrenome">
+                </div>
+                <div class="inputs_register">
+                    <label for="usuario">Usuário</label>
+                    <input class="input_register" type="text" placeholder="Digite um nome de usuário" value="{{ id_usuario.usuario }}" name="usuario" id="usuario">
+                </div>
+                <div class="inputs_register">
+                    <label for="nivel_acesso">Nível de acesso</label>
+                    <select class="input_register" name="nivel_acesso" id="nivel_acesso">
+                        <option value="{{ id_usuario.tipo }}" selected>{{ id_usuario.tipo }}</option>
+                        <option value="CO">Comum</option>
+                        <option value="AU">Autor</option>
+                        <option value="AD">Administrador</option>
+                    </select>
+                </div>
+                <div class="inputs_register">
+                    <label for="senha">Senha</label>
+                    <input class="input_register" type="password" value="{{ id_usuario.senha }}" placeholder="Digite uma senha" name="senha" id="senha">
+                </div>
+                <div class="inputs_register">
+                    <label for="senha2">Repetir Senha</label>
+                    <input class="input_register" type="password" value="{{ id_usuario.senha }}" placeholder="Digite uma senha" name="senha2" id="senha2">
+                </div>
+                <div class="button_cadastro">
+                    <a class="button_cancel" href="{% url 'usuarios' %}">Cancelar</a>
+                    <button class="button_confirm" type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{%endblock%}

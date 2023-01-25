@@ -12,5 +12,5 @@ urlpatterns = [
     path('usuarios', views.usuarios, name='usuarios'),
     path('categorias', views.categorias, name='categorias'),
     path('categoria', views.categoria, name='categoria'),
-
+    path('usuario/<int:usuario_id>', views.usuario_update, name='usuario_update'),
 ]
