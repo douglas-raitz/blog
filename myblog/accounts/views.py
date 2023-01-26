@@ -38,12 +38,8 @@ def login(request):
         page_number = request.GET.get('page')
         posts = paginator.get_page(page_number)
         
-        return render(request, 'post/post.html', {
-            "posts":posts,
-            "usuario_id": usuario_id,
-            "usuario_name": usuario_name,
-            "usuario_tipo": usuario_tipo,
-        })
+        return redirect('post')
+    
     
 
 def cadastro(request):
@@ -158,7 +154,7 @@ def usuario_update(request,usuario_id):
             if request.POST.get('senha2') != request.POST.get('senha'):
                 messages.add_message(request, messages.ERROR, 'As senhas precisam ser iguais.')
                 return redirect('usuario_edit')
-                
+
             id_usuario.nome_autor = request.POST.get('nome')
             id_usuario.sobrenome = request.POST.get('sobrenome')
             id_usuario.usuario = request.POST.get('usuario')
